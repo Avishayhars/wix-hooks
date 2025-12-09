@@ -8,5 +8,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "@wix/app-management": "^1.0.130",
+    "@wix/sdk": "^1.17.5",
+    "express": "^5.2.1"
+  }
 }
