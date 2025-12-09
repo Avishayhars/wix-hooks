@@ -32,33 +32,33 @@ XGVUDv+8wsjMsfKDlGulkWgKKP1HcHmR7uWL2HHCLXPwr7wpxFHl0R65RWaehM4U
 const APP_ID = "c9903086-07e9-4af7-96cc-4133e5d1ff57";
 
 const client = createClient({
-  auth: AppStrategy({
-    appId: APP_ID,
-    publicKey: PUBLIC_KEY,
-  }),
-  modules: { appInstances },
+    auth: AppStrategy({
+        appId: APP_ID,
+        publicKey: PUBLIC_KEY,
+    }),
+    modules: { appInstances },
 });
 
 client.appInstances.onAppInstanceInstalled((event) => {
-  console.log(`onAppInstanceInstalled invoked with data:`, event);
-  console.log(`App instance ID:`, event.metadata.instanceId);
-  //
-  // handle your event here
-  //
+    console.log(`onAppInstanceInstalled invoked with data:`, event);
+    console.log(`App instance ID:`, event.metadata.instanceId);
+    //
+    // handle your event here
+    //
 });
 
 app.post("/webhook", express.text(), async (request, response) => {
-  try {
-    await client.webhooks.process(request.body);
-  } catch (err) {
-    console.error(err);
-    response
-      .status(500)
-      .send(`Webhook error: ${err instanceof Error ? err.message : err}`);
-    return;
-  }
+    try {
+        await client.webhooks.process(request.body);
+    } catch (err) {
+        console.error(err);
+        response
+            .status(500)
+            .send(`Webhook error: ${err instanceof Error ? err.message : err}`);
+        return;
+    }
 
-  response.status(200).send();
+    response.status(200).send();
 });
 
 app.listen(3000, () => console.log("Server started on port 3000"))
